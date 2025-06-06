@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый пользователь</title>
+</head>
+<body>
+<h1>Создать пользователя</h1>
+
+<form th:action="@{/admin/users}" th:object="${user}" method="post">
+    <label>Имя:
+        <input type="text" th:field="*{name}" required/>
+    </label><br/>
+
+    <label>Возраст:
+        <input type="number" th:field="*{age}" required/>
+    </label><br/>
+
+    <label>Логин:
+        <input type="text" th:field="*{username}" required/>
+    </label><br/>
+
+    <label>Пароль:
+        <input type="password" th:field="*{password}" required/>
+    </label><br/>
+
+    <div>
+        <p>Роли:</p>
+        <div th:each="role : ${allRoles}">
+            <label>
+                <input type="checkbox"
+                       th:value="${role.id}"
+                       name="roleIds"
+                       th:checked="${user.roles != null and user.roles.contains(role)}"/>
+                <span th:text="${role.name}"></span>
+            </label><br/>
+        </div>
+    </div>
+
+    <button type="submit">Создать</button>
+</form>
+
+<br/>
+<a href="/admin/users">Назад к списку</a>
+
+</body>
+</html>
